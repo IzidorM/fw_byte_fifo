@@ -100,7 +100,7 @@ void some_function_getting_data_from_fifo(void)
 void some_function_putting_data_to_fifo(uint8_t data_byte)
 {
 
-    if (!byte_fifo_is_empty(&f)) //only one check is needed
+    if (!byte_fifo_is_full(&f)) //only one check is needed
     {
         byte_fifo_write(&f, data_byte);
     }
@@ -119,7 +119,7 @@ optimize this by using the byte_fifo_get_fill_count like this
 void some_function_getting_data_from_fifo(void)
 {
     uint16_t elements_if_fifo = 
-        byte_fifo_get_current_elements_count(&f);
+        byte_fifo_get_fill_count(&f);
 
     for (uint32_t i = 0; elements_if_fifo > i; i++)
     {

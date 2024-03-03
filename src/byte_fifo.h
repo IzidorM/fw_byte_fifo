@@ -35,5 +35,6 @@ uint8_t byte_fifo_peak(struct byte_fifo *f, uint32_t index);
 void byte_fifo_reset(struct byte_fifo *f);
 
 uint16_t byte_fifo_get_free_space(struct byte_fifo *f);
+uint16_t byte_fifo_get_fill_count(struct byte_fifo *f);
 
 #endif

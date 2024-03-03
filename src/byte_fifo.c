@@ -112,20 +112,3 @@ uint16_t byte_fifo_get_free_space(struct byte_fifo *f)
 	return f->fifo_size - byte_fifo_get_fill_count(f);
 }
 
-//uint16_t byte_fifo_get_free_space(struct byte_fifo *f)
-//{
-//        if (f->fifo_out <= f->fifo_in)
-//        {
-//                return f->fifo_size - (f->fifo_in - f->fifo_out);
-//        }
-//        else
-//        {
-//		//case handling fifo_in overflow
-//                uint32_t tmp = f->fifo_in 
-//			+ (0xffff - f->fifo_out) + 1;
-//
-//                return f->fifo_size - tmp;
-//        }
-//}
-//
-

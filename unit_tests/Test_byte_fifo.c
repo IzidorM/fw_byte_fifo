@@ -271,6 +271,40 @@ void test_byte_fifo_reset()
 	TEST_ASSERT(byte_fifo_is_empty(fp));
 }
 
+void test_byte_fifo_get_fill_count()
+{
+	uint8_t mem[5];
+	memset(mem, 0xff, sizeof(mem));
+
+	TEST_ASSERT_EQUAL_UINT32(
+		BF_OK,
+		byte_fifo_init_internal(fp, mem, 4));
+
+	TEST_ASSERT_EQUAL_UINT16(0, byte_fifo_get_fill_count(fp));
+
+	byte_fifo_write(fp, 0);
+	TEST_ASSERT_EQUAL_UINT16(1, byte_fifo_get_fill_count(fp));
+
+	byte_fifo_write(fp, 0);
+	byte_fifo_write(fp, 0);
+	byte_fifo_write(fp, 0);
+	TEST_ASSERT_EQUAL_UINT16(4, byte_fifo_get_fill_count(fp));
+
+	byte_fifo_read(fp);
+	TEST_ASSERT_EQUAL_UINT16(3, byte_fifo_get_fill_count(fp));
+
+	byte_fifo_read(fp);
+	byte_fifo_read(fp);
+	byte_fifo_read(fp);
+	TEST_ASSERT_EQUAL_UINT16(0, byte_fifo_get_fill_count(fp));
+
+	// testing if there is a buffer overflow in fifo memory
+	// always at the end because it doesnt hurt :D
+	TEST_ASSERT_EQUAL_UINT8(0xff, fp->fifo_buff[4]);
+}
+
+
+
 void test_byte_fifo_get_free_space()
 {
 	uint8_t mem[5];

@@ -90,10 +90,11 @@ void test_byte_fifo_init()
 		byte_fifo_init(&settings_foo_malloc));
 
 
-	TEST_ASSERT_NOT_NULL(
-		byte_fifo_init(&settings));
-}
+	struct byte_fifo *bf = byte_fifo_init(&settings);
+	TEST_ASSERT_NOT_NULL(bf);
 
+	free(bf);
+}
 
 
 void test_byte_fifo_init_internal_is_structure_fully_initialized()
@@ -202,7 +203,7 @@ void test_byte_fifo_is_full()
 
 	for (uint32_t i=0; sizeof(mem)-1 > i; i++)
 	{
-		byte_fifo_write(fp, i);
+		byte_fifo_write(fp, i & 0xff);
 	}
 
 	TEST_ASSERT(byte_fifo_is_full(fp));

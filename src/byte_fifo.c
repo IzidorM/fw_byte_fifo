@@ -12,12 +12,12 @@
 
 enum rstatus byte_fifo_init_internal(struct byte_fifo *f,
                             uint8_t *buffer,
-                            uint32_t size)
+                            uint16_t size)
 {
         if ((NULL == f) || NULL == buffer 
 	    || 0 == size 
 	    // size needs to be power of 2
-	    || (size & (size - 1)) != 0) 
+	    || (size & (size - 1)) != 0)
 	    
         {
                 return BF_INVALID_ARGS;
@@ -102,8 +102,12 @@ uint16_t byte_fifo_get_fill_count(struct byte_fifo *f)
         else
         {
 		//case handling fifo_in overflow
-                return f->fifo_in 
-			+ (0xffff - f->fifo_out) + 1;
+                //return f->fifo_in 
+		//	+ (0xffff - (uint32_t) f->fifo_out) + 1;
+                return (uint16_t) (f->fifo_in + 
+			(UINT16_MAX - f->fifo_out) + 1);
+			
+
         }
 }
 

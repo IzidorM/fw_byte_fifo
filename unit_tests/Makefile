@@ -15,7 +15,15 @@ FILES_TO_TEST_SRC= \
 TESTS_SRC= Test_$(TARGET).c
 
 
-C_FLAGS+=-g -ggdb3 -Wall -std=c11 -pedantic -fprofile-arcs -ftest-coverage
+C_FLAGS+=-g -ggdb3 \
+	-Wall -Wextra -Werror -Wshadow \
+	-Wno-unused-parameter -Wundef \
+	-Wconversion -Wno-sign-conversion \
+	-std=c11 -pedantic \
+	-fprofile-arcs -ftest-coverage \
+	-fsanitize=address,undefined \
+
+
 DEFINES+=-D UNIT_TESTS
 
 
@@ -59,9 +67,10 @@ $(BUILD_DIR)/%_Runner.c: $(TESTS_SRC)
 
 $(BUILD_DIR)/$(TARGET): $(TARGET_SRC_ALL)
 	@$(C_COMPILER) -dumpbase '' $(C_FLAGS) $(DEFINES) $(INC_DIRS_GCC) $(TARGET_SRC_ALL) -o $(BUILD_DIR)/$(TARGET)
-	@echo ""
-	@size $(BUILD_DIR)/$(TARGET)
-	@echo ""
+
+#	@echo ""
+#	@size $(BUILD_DIR)/$(TARGET)
+#	@echo ""
 
 clean:
 	@rm -f $(BUILD_DIR)/$(TARGET) \

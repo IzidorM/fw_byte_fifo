@@ -19,7 +19,7 @@ struct byte_fifo {
 
 enum rstatus byte_fifo_init_internal(struct byte_fifo *f,
                             uint8_t *buffer,
-                            uint32_t size);
+                            uint16_t size);
 
 
 #endif

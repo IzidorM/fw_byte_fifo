@@ -16,7 +16,7 @@ First the fifo needs to be initialised. There are 2 ways how this can be done.
 ### Initializing using dynamic memory allocation
 The prefered way of initializing the byte fifo is by using the "dynamic" memory allocation,
 where you provide your own memory allocation function to the settings structure. This way 
-you can fake dynamic memory allocation in case you dont have support.
+you can also fake "dynamic" memory allocation... This way is prefered because the opaque type struct byte_fifo * is returned, so user cant play around with byte_fifo internals...
 
 ``` c
 #include <stdint.h>
@@ -113,7 +113,7 @@ void some_function_putting_data_to_fifo(uint8_t data_byte)
 ```
 
 If there is a need to get multiple bytes from the fifo, you can
-optimize this by using the byte_fifo_get_fill_count like this
+optimize this by using the byte_fifo_get_fill_count like this. 
 
 ``` c
 void some_function_getting_data_from_fifo(void)

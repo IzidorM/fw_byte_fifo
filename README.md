@@ -16,7 +16,11 @@ First the fifo needs to be initialised. There are 2 ways how this can be done.
 ### Initializing using dynamic memory allocation
 The prefered way of initializing the byte fifo is by using the "dynamic" memory allocation,
 where you provide your own memory allocation function to the settings structure. This way 
-you can also fake "dynamic" memory allocation... This way is prefered because the opaque type struct byte_fifo * is returned, so user cant play around with byte_fifo internals...
+is prefered because the opaque type struct byte_fifo * is returned, so user can't play around with byte_fifo internals...
+
+Here you can find a memory allocator implementation designed for embedded systems and 
+more info why you should use it instead of static memroy allocation:
+https://github.com/IzidorM/fw_memory_allocator
 
 ``` c
 #include <stdint.h>

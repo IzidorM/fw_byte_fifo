@@ -17,7 +17,7 @@ struct byte_fifo {
         uint16_t fifo_size_mask;
 };
 
-enum rstatus byte_fifo_init_internal(struct byte_fifo *f,
+enum bf_ret_status byte_fifo_init_internal(struct byte_fifo *f,
                             uint8_t *buffer,
                             uint16_t size);
 

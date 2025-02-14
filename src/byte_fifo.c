@@ -10,7 +10,7 @@
 #include "byte_fifo_internal.h"
 #include "byte_fifo.h"
 
-enum rstatus byte_fifo_init_internal(struct byte_fifo *f,
+enum bf_ret_status byte_fifo_init_internal(struct byte_fifo *f,
                             uint8_t *buffer,
                             uint16_t size)
 {
@@ -93,6 +93,11 @@ uint8_t byte_fifo_peak(struct byte_fifo *f, uint32_t index)
 	return f->fifo_buff[(f->fifo_out + index) & f->fifo_size_mask];
 }
 
+void byte_fifo_remove(struct byte_fifo *f, uint32_t elements)
+{
+	f->fifo_out = (uint16_t) ((f->fifo_out + elements) & f->fifo_size_mask);
+}
+
 uint16_t byte_fifo_get_fill_count(struct byte_fifo *f)
 {
         if (f->fifo_out <= f->fifo_in)
@@ -106,8 +111,6 @@ uint16_t byte_fifo_get_fill_count(struct byte_fifo *f)
 		//	+ (0xffff - (uint32_t) f->fifo_out) + 1;
                 return (uint16_t) (f->fifo_in + 
 			(UINT16_MAX - f->fifo_out) + 1);
-			
-
         }
 }
 

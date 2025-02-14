@@ -11,7 +11,7 @@
 #include <stdbool.h>
 #include <stddef.h>
 
-enum rstatus {
+enum bf_ret_status {
 	BF_OK,
 	BF_INVALID_ARGS,
 	BF_MALLOC_FAIL,
@@ -33,6 +33,7 @@ void byte_fifo_write(struct byte_fifo *f, uint8_t c);
 uint8_t byte_fifo_read(struct byte_fifo *f);
 uint8_t byte_fifo_peak(struct byte_fifo *f, uint32_t index);
 void byte_fifo_reset(struct byte_fifo *f);
+void byte_fifo_remove(struct byte_fifo *f, uint32_t elements);
 
 uint16_t byte_fifo_get_free_space(struct byte_fifo *f);
 uint16_t byte_fifo_get_fill_count(struct byte_fifo *f);
